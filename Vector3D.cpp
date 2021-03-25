@@ -1,11 +1,11 @@
-#include <string>
 #include <iostream>
 #include <math.h>
 using namespace std;
 
 int arr[3];
 
-int* request_coord() {
+
+int* requestCoord() {
 
     cout << "Считываем координаты второго вектора" << endl;
 
@@ -19,7 +19,7 @@ int* request_coord() {
     return arr;
 }
 
-class vector_3d {
+class Vector3D {
 private:
     // скрытые переменные или функции
     int x;
@@ -28,7 +28,7 @@ private:
 
 public:
     // открытые переменные или функции 
-    vector_3d() {
+    Vector3D() {
         cout << "Введите координату вектора x: ";
         cin >> x;
         cout << "Введите координату вектора y: ";
@@ -40,28 +40,28 @@ public:
     void sum() {
         cout << endl << "Это метод суммы" << endl;
         int* coords;
-        coords = request_coord();
+        coords = requestCoord();
         cout << "Результат суммы: ";
         cout << x + coords[0] << ", " << y + coords[1] << ", " << z + coords[2] << endl;
     }
 
-    void div() {
+    void subtr() {
         cout << endl << "Это метод вычитания" << endl;
         int* coords;
-        coords = request_coord();
+        coords = requestCoord();
         cout << "Результат вычитания: ";
         cout << x - coords[0] << ", " << y - coords[1] << ", " << z - coords[2] << endl;
     }
 
-    void scalar_product() {
+    void scalarProduct() {
         cout << endl << "Это скалярное произведение" << endl;
         int* coords;
-        coords = request_coord();
+        coords = requestCoord();
         cout << "Результат сколярного произведения: ";
         cout << x * coords[0] + y * coords[1] + z * coords[2] << endl;
     }
 
-    void mult_scal() {
+    void multScal() {
         cout << endl << "Это умножение на скаляр" << endl;
         int scal;
         int answer;
@@ -74,10 +74,10 @@ public:
         cout << scal * answer << endl;
     }
 
-    void compr_vector() {
+    void comprVector() {
         cout << endl << "Это метод сравнения векторов" << endl;
         int* coords;
-        coords = request_coord();
+        coords = requestCoord();
         if (x == coords[0] and y == coords[1] and z == coords[2]) {
             cout << "Это равные вектора!" << endl; 
         } else {
@@ -91,10 +91,10 @@ public:
         cout << "Длинна вектора равна: " << sqrt(x*x + y*y + z*z) << endl;
     }
 
-    void compr_vector_length() {
+    void comprVectorLength() {
         cout << endl << "Это метод сравнения длин двух векторов" << endl;
         int* coords;
-        coords = request_coord();
+        coords = requestCoord();
         int answer = sqrt(x*x + y*y + z*z);;
         int answer2 = sqrt(coords[0]*coords[0] + coords[1]*coords[1] + coords[2]*coords[2]);;
         cout << "Модули первого и второго вектора равны: " << answer << ", " << answer2 << " соответсвенно."<< endl; 
@@ -109,3 +109,16 @@ public:
 
 };
 
+int main() {
+
+    Vector3D vectorTest;
+    vectorTest.sum();
+    vectorTest.subtr();
+    vectorTest.scalarProduct();
+    vectorTest.multScal();
+    vectorTest.comprVector();
+    vectorTest.length();
+    vectorTest.comprVectorLength();
+
+    return 0;
+}
