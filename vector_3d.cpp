@@ -1,6 +1,8 @@
 #include <string>
 #include <iostream>
 #include <math.h>
+#include "vector_3d.h"
+
 using namespace std;
 
 int arr[3];

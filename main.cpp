@@ -1,18 +1,19 @@
 #include <iostream>
 #include "vector_3d.cpp"
+#include "vector_3d.h"
 using namespace std;
 
 
 int main() {
 
-    vector_3d vectorTest;
-    vectorTest.sum();
-    vectorTest.div();
-    vectorTest.scalar_product();
-    vectorTest.mult_scal();
-    vectorTest.compr_vector();
-    vectorTest.length();
-    vectorTest.compr_vector_length();
+    vector_3d vector_test;
+    vector_test.sum();
+    vector_test.div();
+    vector_test.scalar_product();
+    vector_test.mult_scal();
+    vector_test.compr_vector();
+    vector_test.length();
+    vector_test.compr_vector_length();
 
     return 0;
 }
