@@ -4,6 +4,7 @@ using namespace std;
 
 int arr[3];
 
+
 int* requestCoord() {
 
     cout << "Считываем координаты второго вектора" << endl;
