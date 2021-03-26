@@ -29,15 +29,11 @@ private:
     int z;
 
 public:
+
+    ~vector_3d() {}
+
     // открытые переменные или функции 
-    vector_3d() {
-        cout << "Введите координату вектора x: ";
-        cin >> x;
-        cout << "Введите координату вектора y: ";
-        cin >> y;
-        cout << "Введите координату вектора z: ";
-        cin >> z;
-    }
+    vector_3d(const int x, const int y, const int z) {}
 
     void sum() {
         cout << endl << "Это метод суммы" << endl;
@@ -93,7 +89,7 @@ public:
         cout << "Длинна вектора равна: " << sqrt(x*x + y*y + z*z) << endl;
     }
 
-    void compr_vector_length() {
+    void are_equal() {
         cout << endl << "Это метод сравнения длин двух векторов" << endl;
         int* coords;
         coords = request_coord();
