@@ -70,11 +70,11 @@ double mult_scal(const int scal) const {
     return *result;
 };
 
-std::string compr_vector(const double x1, const double y1, const double z1) const {
+std::string compr_vector(const double x, const double y, const double z) const {
     if (x == x1 and y == y1 and z == z1) {
-        return yes;
+        return yes
     } else {
-        return no;
+        return no
     }
 }
 
@@ -83,7 +83,7 @@ double length() const {
     return *result;
 }
 
-std::string are_equal(const double x1, const double y1, const double z1) const {
+std::string are_equal(const double x, const double y, const double z) const {
     if (sqrt(pow(x, 2) + pow(y, 2) + pow(z, 2)) == sqrt(pow(x1, 2) + pow(y1, 2) + pow(z1, 2))) {
         return yes
     } else {
