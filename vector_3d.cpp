@@ -1,113 +1,92 @@
 #include <string>
-#include <iostream>
-#include <math.h>
+#include <sstream>
+#include <cmath>
 #include "vector_3d.h"
 
-using namespace std;
+vector_3d::vector_3d(const double x, const double y, const double z) 
+    : x(x), y(y), z(z) {}
 
-int arr[3];
+vector_3d::vector_3d(const vector_3d& other) 
+    : vector_3d(other.x, other.y, other.z) {}
 
-int* request_coord() {
-
-    cout << "Считываем координаты второго вектора" << endl;
-
-    cout << "Введите координату x: ";
-    cin >> arr[0];
-    cout << "Введите координату y: ";
-    cin >> arr[1];
-    cout << "Введите координату z: ";
-    cin >> arr[2];
-
-    return arr;
+double vector_3d::get_x() const {
+    return this->x;
 }
 
-class vector_3d {
-private:
-    // скрытые переменные или функции
-    int x;
-    int y;
-    int z;
+double vector_3d::get_y() const {
+    return this->y;
+}
 
-public:
-    // открытые переменные или функции 
-    vector_3d() {
-        cout << "Введите координату вектора x: ";
-        cin >> x;
-        cout << "Введите координату вектора y: ";
-        cin >> y;
-        cout << "Введите координату вектора z: ";
-        cin >> z;
-    }
+double vector_3d::get_z() const {
+    return this->z;
+}
+/*
 
-    void sum() {
-        cout << endl << "Это метод суммы" << endl;
-        int* coords;
-        coords = request_coord();
-        cout << "Результат суммы: ";
-        cout << x + coords[0] << ", " << y + coords[1] << ", " << z + coords[2] << endl;
-    }
+Данное решение не подходит для решение задачи, тк вектор находиться в пространстве, а в
+координатном представлении вектор суммы получается суммированием соответствующих координат слагаемых.
+С другими методами аналогично.
 
-    void div() {
-        cout << endl << "Это метод вычитания" << endl;
-        int* coords;
-        coords = request_coord();
-        cout << "Результат вычитания: ";
-        cout << x - coords[0] << ", " << y - coords[1] << ", " << z - coords[2] << endl;
-    }
+double sum(const int x1, const int y1, const int z1) const {
 
-    void scalar_product() {
-        cout << endl << "Это скалярное произведение" << endl;
-        int* coords;
-        coords = request_coord();
-        cout << "Результат сколярного произведения: ";
-        cout << x * coords[0] + y * coords[1] + z * coords[2] << endl;
-    }
+    double a = sqrt(pow(x, 2) + pow(y, 2) + pow(z, 2));
+    double b = sqrt(pow(x1, 2) + pow(y1, 2) + pow(z1, 2));
+    double cos_ab = ((x*x1+y*y1+z*z1)/(sqrt(pow(x, 2) + pow(y, 2) + pow(z, 2))*sqrt(pow(x1, 2) + pow(y1, 2) + pow(z1, 2))));
+    return sqrt(fabs(pow(fabs(a), 2) + pow(fabs(b), 2) + 2 * fabs(a) * fabs(b) * cos_ab));
+}
 
-    void mult_scal() {
-        cout << endl << "Это умножение на скаляр" << endl;
-        int scal;
-        int answer;
-        cout << "Введите скаляр: ";
-        cin >> scal;
-        cout << "Модуль вектора равен: ";
-        answer = sqrt(x*x + y*y + z*z);
-        cout << answer;
-        cout << endl <<" Результат умножения на скаляр это: ";
-        cout << scal * answer << endl;
-    }
+double div(const int x1, const int y1, const int z1) const {
 
-    void compr_vector() {
-        cout << endl << "Это метод сравнения векторов" << endl;
-        int* coords;
-        coords = request_coord();
-        if (x == coords[0] and y == coords[1] and z == coords[2]) {
-            cout << "Это равные вектора!" << endl; 
-        } else {
-            cout << "Они не равны!" << endl; 
-        }
-    }
+    double a = sqrt(pow(x, 2) + pow(y, 2) + pow(z, 2));
+    double b = sqrt(pow(x1, 2) + pow(y1, 2) + pow(z1, 2));
+    double cos_ab = ((x*x1+y*y1+z*z1)/(sqrt(pow(x, 2) + pow(y, 2) + pow(z, 2))*sqrt(pow(x1, 2) + pow(y1, 2) + pow(z1, 2))));
+    return sqrt(fabs(pow(fabs(a), 2) + pow(fabs(b), 2) - 2 * fabs(a) * fabs(b) * cos_ab));
+}
+*/
 
+vector_3d& vector_3d::sum(const vector_3d& other) const {
 
-    void length() {
-        cout << endl << "Это метод поиска длинны вектора" << endl;
-        cout << "Длинна вектора равна: " << sqrt(x*x + y*y + z*z) << endl;
-    }
+    const auto x = this->get_x() + other.get_x();
+    const auto y = this->get_y() + other.get_y();
+    const auto z = this->get_z() + other.get_z();
+    const auto result = new vector_3d(x, y, z);
+    return *result;
+}
 
-    void compr_vector_length() {
-        cout << endl << "Это метод сравнения длин двух векторов" << endl;
-        int* coords;
-        coords = request_coord();
-        int answer = sqrt(x*x + y*y + z*z);;
-        int answer2 = sqrt(coords[0]*coords[0] + coords[1]*coords[1] + coords[2]*coords[2]);;
-        cout << "Модули первого и второго вектора равны: " << answer << ", " << answer2 << " соответсвенно."<< endl; 
-        if (answer > answer2) {
-            cout << "Первый вектор больше" << endl;
-        } else if (answer == answer2) {
-            cout << "Вектора равны" << endl;
-        } else {
-            cout << "Второй вектор больше" << endl;
-        }
-    }
+vector_3d& vector_3d::div(const vector_3d& other) const {
+    const auto x = this->get_x() + other.get_x();
+    const auto y = this->get_y() + other.get_y();
+    const auto z = this->get_z() + other.get_z();
+    const auto result = new vector_3d(x, y, z);
+    return *result;
+}
 
+double scalar_product(const vector_3d& other) const {
+    const auto result = this->get_x() * other.get_x() + this->get_y() * other.get_y() + this->get_z() * other.get_z();
+    return *result;
 };
 
+double mult_scal(const int scal) const {
+    const auto result = sqrt(pow(x, 2) + pow(y, 2) + pow(z, 2)) * scal;
+    return *result;
+};
+
+std::string compr_vector(const double x1, const double y1, const double z1) const {
+    if (x == x1 and y == y1 and z == z1) {
+        return yes;
+    } else {
+        return no;
+    }
+}
+
+double length() const {
+    const auto result = sqrt(pow(x, 2) + pow(y, 2) + pow(z, 2));
+    return *result;
+}
+
+std::string are_equal(const double x1, const double y1, const double z1) const {
+    if (sqrt(pow(x, 2) + pow(y, 2) + pow(z, 2)) == sqrt(pow(x1, 2) + pow(y1, 2) + pow(z1, 2))) {
+        return yes
+    } else {
+        return no
+    }
+}

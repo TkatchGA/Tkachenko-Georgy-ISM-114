@@ -2,74 +2,118 @@
 #include <string>
 
 /**
-* \brief класс описывающий работу с векторами
-*/
+ * @brief Класс позволяющий работать с векторами
+ * 
+ */
+
 class vector_3d {
 
 private:
 
     /**
-     * \brief координата вектора по x
+     * @brief координата вектора по x
      */
-    int x;
+    double x;
 
     /**
-     * \brief координата вектора по y
+     * @brief координата вектора по y
      */
-    int y;
+    double y;
     
     /**
-     * \brief координата вектора по z
+     * @brief координата вектора по z
      */
-    int z;
+    double z;
 
 public:
-    /**
-     * \brief конструктор для первого вектора
-     * \param in собирает значения по x y z
-     */
-    vector_3d();
 
     /**
-     * \brief возвращает сумму двух векторов
-     * \return сумма первого и второго вектора
+     * @brief Параметризированный конструктор
+     * @param x Координата вектора по x
+     * @param y Координата вектора по y
+     * @param z Координата вектора по z
      */
-    void sum();
+    vector_3d(const double x, const double y, const double z);
+    
+    /**
+     * @brief Конструктор копирования
+     */
+
+    vector_3d(const vector_3d& other);
 
     /**
-     * \brief возвращает разность двух векторов
-     * \return разность первого и второго вектора
+     * @brief Деструктор
      */
-    void div();
+    ~vector_3d();
 
     /**
-     * \brief возвращает скалярное произведение векторов
-     * \return скалярное произведение векторов
+     * @brief Возвращает координату x
+     * @return координата x
      */
-    void scalar_product();
+
+    double get_x() const;
 
     /**
-     * \brief возвращает умножение первого верктора на скаляр
-     * \return умноженный вектор на скаляр
+     * @brief Возвращает координату y
+     * @return координата y
      */
-    void mult_scal();
+
+    double get_y() const;
 
     /**
-     * \brief сравнивает два вектора
-     * \return возвращает сообщение о том какой вектор больше
+     * @brief Возвращает координату z
+     * @return координата z
      */
-    void compr_vector();
+
+    double get_z() const;
 
     /**
-     * \brief вычисляет длину первого вектора
-     * \return длина вектора
+     * @brief Возвращает сумму векторов a и b
+     * @return сумма векторов a и b
      */
-    void length();
+
+    vector_3d& sum(const vector_3d& other) const;
 
     /**
-     * \brief сравнивает два вектора
-     * \return возвращает сообщение о том равныли вектора
+     * @brief Возвращает разность векторов a и b
+     * @return разность векторов a и b
      */
-    void compr_vector_length();
+
+    vector_3d& div(const vector_3d& other) const;
+
+    /**
+     * @brief Возвращает скалярное произведение векторов a и b
+     * @return скалярное произведение векторов a и b
+     */
+
+    double scalar_product(const vector_3d& other) const;
+
+    /**
+     * @brief Возвращает умножение на скаляр вектора a
+     * @return умножение на скаляр вектора a
+     */
+
+    double mult_scal(const int scal) const;
+
+    /**
+     * @brief Сравнивает равны ли вектор a, вектора b
+     * @return yes или no
+     */
+
+    std::string compr_vector(const double x, const double y, const double z) const;
+
+    /**
+     * @brief Считает длину вектора a
+     * @return длина a
+     */
+
+    double length() const;
+
+    /**
+     * @brief сравнивает равны ли вектора по длине 
+     * @return yes или no
+     */
+
+    std::string are_equal(const double x, const double y, const double z) const;
 
 };
