@@ -1,17 +1,10 @@
 #pragma once
 #include <string>
 
-
 /**
- * @brief Данную функцию, я использую для считывания данных второго вектора в массив
- * @return int* 
+ * @brief Класс позволяющий работать с векторами
+ * 
  */
-
-int* request_coord();
-
-/**
-* @brief класс описывающий работу с векторами
-*/
 
 class vector_3d {
 
@@ -35,12 +28,6 @@ private:
 public:
 
     /**
-     * @brief конструктор по умолчанию
-     */
-    vector_3d();
-
-
-    /**
      * @brief Параметризированный конструктор
      * @param x Координата вектора по x
      * @param y Координата вектора по y
@@ -60,47 +47,73 @@ public:
     ~vector_3d();
 
     /**
-     * @brief возвращает сумму двух векторов
-     * @return сумма первого и второго вектора
-     * я предполгаю что в дальнейшем нужно будет использовать структуры 
-     * для хранения координат вектора x, y, z. 
+     * @brief Возвращает координату x
+     * @return координата x
      */
-    double sum() const;
+
+    double get_x() const;
 
     /**
-     * \brief возвращает разность двух векторов
-     * \return разность первого и второго вектора
+     * @brief Возвращает координату y
+     * @return координата y
      */
-    double div() const;
+
+    double get_y() const;
 
     /**
-     * \brief возвращает скалярное произведение векторов
-     * \return скалярное произведение векторов
+     * @brief Возвращает координату z
+     * @return координата z
      */
-    double scalar_product() const;
+
+    double get_z() const;
 
     /**
-     * \brief возвращает умножение первого верктора на скаляр
-     * \return умноженный вектор на скаляр
+     * @brief Возвращает сумму векторов a и b
+     * @return сумма векторов a и b
      */
-    double mult_scal() const;
+
+    vector_3d& sum(const vector_3d& other) const;
 
     /**
-     * \brief сравнивает два вектора
-     * \return возвращает сообщение о том какой вектор больше
+     * @brief Возвращает разность векторов a и b
+     * @return разность векторов a и b
      */
-    std::string compr_vector() const;
+
+    vector_3d& div(const vector_3d& other) const;
 
     /**
-     * \brief вычисляет длину первого вектора
-     * \return длина вектора
+     * @brief Возвращает скалярное произведение векторов a и b
+     * @return скалярное произведение векторов a и b
      */
+
+    double scalar_product(const vector_3d& other) const;
+
+    /**
+     * @brief Возвращает умножение на скаляр вектора a
+     * @return умножение на скаляр вектора a
+     */
+
+    double mult_scal(const int scal) const;
+
+    /**
+     * @brief Сравнивает равны ли вектор a, вектора b
+     * @return yes или no
+     */
+
+    std::string compr_vector(const double x, const double y, const double z) const;
+
+    /**
+     * @brief Считает длину вектора a
+     * @return длина a
+     */
+
     double length() const;
 
     /**
-     * \brief сравнивает два вектора
-     * \return возвращает сообщение о том равныли вектора
+     * @brief сравнивает равны ли вектора по длине 
+     * @return yes или no
      */
-    std::string are_equal() const;
+
+    std::string are_equal(const double x, const double y, const double z) const;
 
 };
