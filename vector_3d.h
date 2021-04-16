@@ -3,7 +3,6 @@
 
 /**
  * @brief Класс позволяющий работать с векторами
- * 
  */
 
 class vector_3d {
@@ -44,7 +43,7 @@ public:
     /**
      * @brief Деструктор
      */
-    ~vector_3d();
+    ~vector_3d() = default;
 
     /**
      * @brief Возвращает координату x
@@ -100,7 +99,7 @@ public:
      * @return yes или no
      */
 
-    std::string compr_vector(const double x, const double y, const double z) const;
+    bool compr_vector(const vector_3d& other) const;
 
     /**
      * @brief Считает длину вектора a
@@ -114,6 +113,6 @@ public:
      * @return yes или no
      */
 
-    std::string are_equal(const double x, const double y, const double z) const;
+    bool are_equal(const vector_3d& other) const;
 
 };

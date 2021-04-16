@@ -5,7 +5,7 @@
 
 int main() {
     
-    vector_3d vector_test = vector_3d(1, 4, 5);
+    Vector_3d vector_test = vector_3d(1, 4, 5);
     std::cout << "sum= " << vector_test.sum(1, 2, 3) << "\n";
     std::cout << "div= " << vector_test.div(3, 2, 1) << "\n";
     std::cout << "scalar_product= " << vector_test.scalar_product(1, 2, 3) << "\n";
