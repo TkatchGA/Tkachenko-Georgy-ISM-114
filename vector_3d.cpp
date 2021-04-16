@@ -53,9 +53,9 @@ vector_3d& vector_3d::sum(const vector_3d& other) const {
 }
 
 vector_3d& vector_3d::div(const vector_3d& other) const {
-    const auto x = this->get_x() + other.get_x();
-    const auto y = this->get_y() + other.get_y();
-    const auto z = this->get_z() + other.get_z();
+    const auto x = this->get_x() - other.get_x();
+    const auto y = this->get_y() - other.get_y();
+    const auto z = this->get_z() - other.get_z();
     const auto result = new vector_3d(x, y, z);
     return *result;
 }
@@ -65,13 +65,14 @@ double scalar_product(const vector_3d& other) const {
     return *result;
 };
 
-double mult_scal(const int scal) const {
-    const auto result = sqrt(pow(x, 2) + pow(y, 2) + pow(z, 2)) * scal;
+double mult_scal(const bool scal) const {
+    const auto result = sqrt(pow(this->get_x(), 2) + pow(this->get_y(), 2) + pow(this->get_z(), 2)) * scal;
     return *result;
 };
 
-std::string compr_vector(const double x1, const double y1, const double z1) const {
-    if (x == x1 and y == y1 and z == z1) {
+bool compr_vector(const vector_3d& other) const {
+    /* Написать функцию для смены типа double на int */
+    if (this->get_x() == other.get_x() and this->get_y() == other.get_y() and this->get_z() == other.get_z()) {
         return yes;
     } else {
         return no;
@@ -79,14 +80,14 @@ std::string compr_vector(const double x1, const double y1, const double z1) cons
 }
 
 double length() const {
-    const auto result = sqrt(pow(x, 2) + pow(y, 2) + pow(z, 2));
+    const auto result = sqrt(pow(this->get_x(), 2) + pow(this->get_y(), 2) + pow(this->get_z(), 2));
     return *result;
 }
 
-std::string are_equal(const double x1, const double y1, const double z1) const {
-    if (sqrt(pow(x, 2) + pow(y, 2) + pow(z, 2)) == sqrt(pow(x1, 2) + pow(y1, 2) + pow(z1, 2))) {
-        return yes
+bool are_equal(const vector_3d& other) const {
+    if (sqrt(pow(this->get_x(), 2) + pow(this->get_y(), 2) + pow(this->get_z(), 2)) == sqrt(pow(other.get_x(), 2) + pow(other.get_y(), 2) + pow(other.get_z(), 2))) {
+        return yes;
     } else {
-        return no
+        return no;
     }
 }
