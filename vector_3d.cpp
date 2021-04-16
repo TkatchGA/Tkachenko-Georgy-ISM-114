@@ -72,6 +72,7 @@ double mult_scal(const bool scal) const {
 
 bool compr_vector(const vector_3d& other) const {
     /* Написать функцию для смены типа double на int */
+    /* Нельзя использовать double*/
     if (this->get_x() == other.get_x() and this->get_y() == other.get_y() and this->get_z() == other.get_z()) {
         return yes;
     } else {
