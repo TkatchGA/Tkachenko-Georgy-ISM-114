@@ -1,13 +1,11 @@
 #include <string>
 #include <sstream>
 #include <cmath>
+#include <iostream>
 #include "vector_3d.h"
 
 vector_3d::vector_3d(const double x, const double y, const double z) 
     : x(x), y(y), z(z) {}
-
-vector_3d::vector_3d(const vector_3d& other) 
-    : vector_3d(other.x, other.y, other.z) {}
 
 double vector_3d::get_x() const {
     return this->x;
@@ -43,52 +41,65 @@ double div(const int x1, const int y1, const int z1) const {
 }
 */
 
-vector_3d& vector_3d::sum(const vector_3d& other) const {
+vector_3d vector_3d::sum(const vector_3d& other) const {
 
-    const auto x = this->get_x() + other.get_x();
-    const auto y = this->get_y() + other.get_y();
-    const auto z = this->get_z() + other.get_z();
-    const auto result = new vector_3d(x, y, z);
-    return *result;
+    const double x = this->get_x() + other.get_x();
+    const double y = this->get_y() + other.get_y();
+    const double z = this->get_z() + other.get_z();
+
+    return vector_3d(x, y, z);
 }
 
-vector_3d& vector_3d::div(const vector_3d& other) const {
-    const auto x = this->get_x() - other.get_x();
-    const auto y = this->get_y() - other.get_y();
-    const auto z = this->get_z() - other.get_z();
-    const auto result = new vector_3d(x, y, z);
-    return *result;
+vector_3d vector_3d::sum(const double x, const double y, const double z) const {
+
+    const double x = this->get_x() + x;
+    const double y = this->get_y() + y;
+    const double z = this->get_z() + z;
+
+    return vector_3d(x, y, z);
 }
 
-double scalar_product(const vector_3d& other) const {
-    const auto result = this->get_x() * other.get_x() + this->get_y() * other.get_y() + this->get_z() * other.get_z();
-    return *result;
+vector_3d vector_3d::sub(const vector_3d& other) const {
+    const double x = this->get_x() - other.get_x();
+    const double y = this->get_y() - other.get_y();
+    const double z = this->get_z() - other.get_z();
+
+    return vector_3d(x, y, z);
+    
+}
+
+double vector_3d::scalar_product(const vector_3d& other) const {
+    return this->get_x() * other.get_x() + this->get_y() * other.get_y() + this->get_z() * other.get_z();
 };
 
-double mult_scal(const bool scal) const {
-    const auto result = sqrt(pow(this->get_x(), 2) + pow(this->get_y(), 2) + pow(this->get_z(), 2)) * scal;
-    return *result;
+double vector_3d::mult_scal(const double scal) const {
+    return sqrt(pow(this->get_x(), 2) + pow(this->get_y(), 2) + pow(this->get_z(), 2)) * scal;
 };
 
-bool compr_vector(const vector_3d& other) const {
-    /* Написать функцию для смены типа double на int */
-    /* Нельзя использовать double*/
-    if (this->get_x() == other.get_x() and this->get_y() == other.get_y() and this->get_z() == other.get_z()) {
-        return yes;
-    } else {
-        return no;
-    }
+bool vector_3d::compr_vector(const vector_3d& other) const {
+
+    return (this->get_x() == other.get_x() && this->get_y() == other.get_y() && this->get_z() == other.get_z());
 }
 
-double length() const {
-    const auto result = sqrt(pow(this->get_x(), 2) + pow(this->get_y(), 2) + pow(this->get_z(), 2));
-    return *result;
+double vector_3d::length() const {
+    return sqrt(pow(this->get_x(), 2) + pow(this->get_y(), 2) + pow(this->get_z(), 2));
 }
 
-bool are_equal(const vector_3d& other) const {
-    if (sqrt(pow(this->get_x(), 2) + pow(this->get_y(), 2) + pow(this->get_z(), 2)) == sqrt(pow(other.get_x(), 2) + pow(other.get_y(), 2) + pow(other.get_z(), 2))) {
-        return yes;
-    } else {
-        return no;
-    }
+bool vector_3d::are_equal(const vector_3d& other) const {
+    return this->length() == other.length();    
+}
+
+std::string vector_3d::to_string() const
+{
+    std::stringstream buffer;
+    buffer << "{" << this->get_x() << ", ";
+    buffer << this->get_y() << ", ";
+    buffer << this->get_z() << "}";
+
+    return buffer.str();
+}
+
+std::ostream& operator << (std::ostream& out, const vector_3d& vector)
+{
+    return out << vector.to_string();
 }
