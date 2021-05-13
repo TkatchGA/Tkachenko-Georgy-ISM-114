@@ -3,6 +3,7 @@
 #include <cmath>
 #include <iostream>
 #include "vector_3d.h"
+#include "math_helper.h"
 
 vector_3d::vector_3d(const double x, const double y, const double z) 
     : x(x), y(y), z(z) {}
@@ -43,13 +44,14 @@ double div(const int x1, const int y1, const int z1) const {
 
 vector_3d vector_3d::sum(const vector_3d& other) const {
 
-    const double x = this->get_x() + other.get_x();
-    const double y = this->get_y() + other.get_y();
-    const double z = this->get_z() + other.get_z();
+    const double sum_x = this->get_x() + other.get_x();
+    const double sum_y = this->get_y() + other.get_y();
+    const double sum_z = this->get_z() + other.get_z();
 
-    return vector_3d(x, y, z);
+    return vector_3d(sum_x, sum_y, sum_z);
 }
 
+/*
 vector_3d vector_3d::sum(const double x, const double y, const double z) const {
 
     const double x = this->get_x() + x;
@@ -58,13 +60,14 @@ vector_3d vector_3d::sum(const double x, const double y, const double z) const {
 
     return vector_3d(x, y, z);
 }
+*/
 
 vector_3d vector_3d::sub(const vector_3d& other) const {
-    const double x = this->get_x() - other.get_x();
-    const double y = this->get_y() - other.get_y();
-    const double z = this->get_z() - other.get_z();
+    const double sub_x = this->get_x() - other.get_x();
+    const double sub_y = this->get_y() - other.get_y();
+    const double sub_z = this->get_z() - other.get_z();
 
-    return vector_3d(x, y, z);
+    return vector_3d(sub_x, sub_y, sub_z);
     
 }
 
@@ -78,7 +81,10 @@ double vector_3d::mult_scal(const double scal) const {
 
 bool vector_3d::compr_vector(const vector_3d& other) const {
 
-    return (this->get_x() == other.get_x() && this->get_y() == other.get_y() && this->get_z() == other.get_z());
+    return ::are_equal(this->get_x(), other.get_x()) &&
+           ::are_equal(this->get_y(), other.get_y()) &&
+           ::are_equal(this->get_z(), other.get_z());
+    
 }
 
 double vector_3d::length() const {
@@ -86,7 +92,8 @@ double vector_3d::length() const {
 }
 
 bool vector_3d::are_equal(const vector_3d& other) const {
-    return this->length() == other.length();    
+    return ::are_equal(this->length(), other.length());
+    
 }
 
 std::string vector_3d::to_string() const
