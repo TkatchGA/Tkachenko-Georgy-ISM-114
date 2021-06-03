@@ -1,13 +1,12 @@
 #include <string>
 #include <sstream>
 #include <cmath>
+#include <iostream>
 #include "vector_3d.h"
+#include "math_helper.h"
 
 vector_3d::vector_3d(const double x, const double y, const double z) 
     : x(x), y(y), z(z) {}
-
-vector_3d::vector_3d(const vector_3d& other) 
-    : vector_3d(other.x, other.y, other.z) {}
 
 double vector_3d::get_x() const {
     return this->x;
@@ -20,74 +19,114 @@ double vector_3d::get_y() const {
 double vector_3d::get_z() const {
     return this->z;
 }
+
 /*
+vector_3d vector_3d::sum(const vector_3d& other) const {
 
-Данное решение не подходит для решение задачи, тк вектор находиться в пространстве, а в
-координатном представлении вектор суммы получается суммированием соответствующих координат слагаемых.
-С другими методами аналогично.
+    const double sum_x = this->get_x() + other.get_x();
+    const double sum_y = this->get_y() + other.get_y();
+    const double sum_z = this->get_z() + other.get_z();
 
-double sum(const int x1, const int y1, const int z1) const {
-
-    double a = sqrt(pow(x, 2) + pow(y, 2) + pow(z, 2));
-    double b = sqrt(pow(x1, 2) + pow(y1, 2) + pow(z1, 2));
-    double cos_ab = ((x*x1+y*y1+z*z1)/(sqrt(pow(x, 2) + pow(y, 2) + pow(z, 2))*sqrt(pow(x1, 2) + pow(y1, 2) + pow(z1, 2))));
-    return sqrt(fabs(pow(fabs(a), 2) + pow(fabs(b), 2) + 2 * fabs(a) * fabs(b) * cos_ab));
+    return vector_3d(sum_x, sum_y, sum_z);
 }
 
-double div(const int x1, const int y1, const int z1) const {
 
-    double a = sqrt(pow(x, 2) + pow(y, 2) + pow(z, 2));
-    double b = sqrt(pow(x1, 2) + pow(y1, 2) + pow(z1, 2));
-    double cos_ab = ((x*x1+y*y1+z*z1)/(sqrt(pow(x, 2) + pow(y, 2) + pow(z, 2))*sqrt(pow(x1, 2) + pow(y1, 2) + pow(z1, 2))));
-    return sqrt(fabs(pow(fabs(a), 2) + pow(fabs(b), 2) - 2 * fabs(a) * fabs(b) * cos_ab));
+vector_3d vector_3d::sub(const vector_3d& other) const {
+    const double sub_x = this->get_x() - other.get_x();
+    const double sub_y = this->get_y() - other.get_y();
+    const double sub_z = this->get_z() - other.get_z();
+
+    return vector_3d(sub_x, sub_y, sub_z);
+    
 }
 */
 
-vector_3d& vector_3d::sum(const vector_3d& other) const {
+vector_3d vector_3d::sum(const vector_3d& other) const {
 
-    const auto x = this->get_x() + other.get_x();
-    const auto y = this->get_y() + other.get_y();
-    const auto z = this->get_z() + other.get_z();
-    const auto result = new vector_3d(x, y, z);
-    return *result;
+    return  ::sum_helper(this->get_x(), other.get_x()) &&
+            ::sum_helper(this->get_y(), other.get_y())&&
+            ::sum_helper(this->get_z(), other.get_z());
+
 }
 
-vector_3d& vector_3d::div(const vector_3d& other) const {
-    const auto x = this->get_x() - other.get_x();
-    const auto y = this->get_y() - other.get_y();
-    const auto z = this->get_z() - other.get_z();
-    const auto result = new vector_3d(x, y, z);
-    return *result;
-}
 
-double scalar_product(const vector_3d& other) const {
-    const auto result = this->get_x() * other.get_x() + this->get_y() * other.get_y() + this->get_z() * other.get_z();
-    return *result;
+vector_3d vector_3d::sub(const vector_3d& other) const {
+    return  ::sub_helper(this->get_x(), other.get_x()) &&
+            ::sub_helper(this->get_y(), other.get_y())&&
+            ::sub_helper(this->get_z(), other.get_z());
+
+}
+/*
+double vector_3d::scalar_product(const vector_3d& other) const {
+    return this->get_x() * other.get_x() + this->get_y() * other.get_y() + this->get_z() * other.get_z();
+};
+*/
+
+double vector_3d::scalar_product(const vector_3d& other) const {
+
+    mult_x = ::mult_helper(this->get_x(), other.get_x());
+    mult_y = ::mult_helper(this->get_y(), other.get_y());
+    mult_z = ::mult_helper(this->get_z(), other.get_z());
+
+    sum_xy = ::sum_helper(mult_x, mult_y);
+
+    return ::sum_helper(sum_xy, mult_z);
+};
+/*
+double vector_3d::mult_scal(const double scal) const {
+    return sqrt(pow(this->get_x(), 2) + pow(this->get_y(), 2) + pow(this->get_z(), 2)) * scal;
+};
+*/
+
+double vector_3d::mult_scal(const double scal) const {
+
+    mult_x = ::mult_helper(this->get_x(), this->get_x());
+    mult_y = ::mult_helper(this->get_y(), this->get_y());
+    mult_z = ::mult_helper(this->get_z(), this->get_z());
+    sum_xy = ::sum_helper(mult_x, mult_y);
+    answer = ::mult_helper(sqrt(::sum_helper(sum_xy, mult_z)), scal);
+
+    return answer;
 };
 
-double mult_scal(const bool scal) const {
-    const auto result = sqrt(pow(this->get_x(), 2) + pow(this->get_y(), 2) + pow(this->get_z(), 2)) * scal;
-    return *result;
-};
+bool vector_3d::compr_vector(const vector_3d& other) const {
 
-bool compr_vector(const vector_3d& other) const {
-    /* Написать функцию для смены типа double на int */
-    if (this->get_x() == other.get_x() and this->get_y() == other.get_y() and this->get_z() == other.get_z()) {
-        return yes;
-    } else {
-        return no;
-    }
+    return ::are_equal(this->get_x(), other.get_x()) &&
+           ::are_equal(this->get_y(), other.get_y()) &&
+           ::are_equal(this->get_z(), other.get_z());
+    
+}
+/*
+double vector_3d::length() const {
+    return sqrt(pow(this->get_x(), 2) + pow(this->get_y(), 2) + pow(this->get_z(), 2));
+}
+*/
+
+double vector_3d::length() const {
+    mult_x = ::mult_helper(this->get_x(), this->get_x());
+    mult_y = ::mult_helper(this->get_y(), this->get_y());
+    mult_z = ::mult_helper(this->get_z(), this->get_z());
+
+    sum_xy = ::sum_helper(mult_x, mult_y);
+    return ::sum_helper(sum_xy, mult_z);
 }
 
-double length() const {
-    const auto result = sqrt(pow(this->get_x(), 2) + pow(this->get_y(), 2) + pow(this->get_z(), 2));
-    return *result;
+bool vector_3d::are_equal(const vector_3d& other) const {
+    return ::are_equal(this->length(), other.length());
+    
 }
 
-bool are_equal(const vector_3d& other) const {
-    if (sqrt(pow(this->get_x(), 2) + pow(this->get_y(), 2) + pow(this->get_z(), 2)) == sqrt(pow(other.get_x(), 2) + pow(other.get_y(), 2) + pow(other.get_z(), 2))) {
-        return yes;
-    } else {
-        return no;
-    }
+std::string vector_3d::to_string() const
+{
+    std::stringstream buffer;
+    buffer << "{" << this->get_x() << ", ";
+    buffer << this->get_y() << ", ";
+    buffer << this->get_z() << "}";
+
+    return buffer.str();
+}
+
+std::ostream& operator << (std::ostream& out, const vector_3d& vector)
+{
+    return out << vector.to_string();
 }
